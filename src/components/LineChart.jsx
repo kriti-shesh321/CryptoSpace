@@ -29,7 +29,6 @@ const LineChart = ({ coinId, timePeriod }) => {
     const [loading, setLoading] = useState(true);
     const [timeList, setTimeList] = useState([]);
     const [priceList, setPriceList] = useState([]);
-    const [change, setChange] = useState('');
 
     const navigate = useNavigate();
 
@@ -41,7 +40,6 @@ const LineChart = ({ coinId, timePeriod }) => {
                 const time = data?.history.map((item) => item.timestamp);
                 setTimeList(time);
                 setPriceList(price);
-                setChange(data?.change);
             } catch (error) {
                 console.log(error);
                 navigate('/server-error');
@@ -65,7 +63,6 @@ const LineChart = ({ coinId, timePeriod }) => {
                 backgroundColor: 'blue',
                 tension: 0.4,
                 fill: true,
-                
             },
         ],
     };

@@ -1,11 +1,11 @@
-import React from "react";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { FaArrowCircleRight } from 'react-icons/fa';
 import millify from "millify";
 import Spinner from "./Spinner";
-import { useNavigate } from "react-router-dom";
 import ExchangeContext from "../context/exchangeContext";
 
-const Exchanges = () => {
+const Exchanges = ({isHome}) => {
   const { getExchangeData } = useContext(ExchangeContext);
   const [exchanges, setExchanges] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -37,29 +37,41 @@ const Exchanges = () => {
 
   return (
     <section>
-      <div className="overflow-x-auto text-left">
+
+      <div className={`flex justify-start gap-3 stat-box pl-0 heading mt-10 ${!isHome && 'hidden'}`}>
+        <h1 >Checkout Exchanges...</h1>
+        <Link
+          className={`heading-link`}
+          to='/exchanges'
+        >
+          <FaArrowCircleRight className="inline mb-2" />
+        </Link>
+      </div>
+
+
+      <div className={`overflow-x-auto text-left mt-10 md:mt-0 ${isHome && 'hidden'}`}>
         <table className="min-w-full text-slate-500 text-sm">
           <thead className="bg-gray-200 font-medium">
             <tr>
-              <td className="px-4 py-2">Exchange</td>
-              <td className="px-4 py-2">24th Trade Volume</td>
-              <td className="px-4 py-2">Country</td>
+              <td className="md:px-4 px-1 py-2">Exchange</td>
+              <td className="md:px-4 px-1 py-2">24th Trade Volume</td>
+              <td className="md:px-4 px-1 py-2">Country</td>
             </tr>
           </thead>
           <tbody>
             {exchanges?.map((exchange, index) => (
               <React.Fragment key={index}>
-               
+
                 <tr
-                  className="cursor-pointer hover:bg-gray-100"
+                  className="cursor-pointer hover:bg-gray-100 text-xs"
                   onClick={() => toggleRow(index)}
                 >
-                  <td className="p-4 border-b text-black flex gap-5">
-                    <img className="h-8" src={exchange.image} alt="exchange icon"/>
+                  <td className="md:p-4 px-1 py-4 border-b text-black flex md:gap-5 gap-1">
+                    <img className="md:h-8 h-6" src={exchange.image} alt="exchange icon" />
                     <span>{exchange.trust_score_rank}. {exchange.name}</span>
-                    </td>
-                  <td className="p-4 border-b">{millify(exchange.trade_volume_24h_btc_normalized)}</td>
-                  <td className="p-4 border-b">{exchange.country || 'N/A'}</td>
+                  </td>
+                  <td className="md:p-4 px-1 py-4 border-b">{millify(exchange.trade_volume_24h_btc_normalized)}</td>
+                  <td className="md:p-4 px-1 py-4 border-b">{exchange.country || 'N/A'}</td>
                 </tr>
 
                 {expandedRow === index && (

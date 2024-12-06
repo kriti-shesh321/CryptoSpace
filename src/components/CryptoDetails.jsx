@@ -44,7 +44,7 @@ const CryptoDetails = () => {
   if (loading) return <Spinner />
 
   return (
-    coin && 
+    coin &&
     <section>
 
       <div className="flex-col text-center mt-10 pb-5 border-b border-gray-300">
@@ -73,19 +73,24 @@ const CryptoDetails = () => {
           </select>
         </div>
 
+        <div className="flex justify-between">
+          <span className="md:heading md:font-bold font-medium text-sm text-blue-500 md:p-5 py-5">{coin.name} Price Chart</span>
+          <span className="md:p-5 py-5 md:font-bold md:text-lg text-sm font-medium">Current {coin.name} Price: $ {millify(coin.price)}</span>
+        </div>
+
         <LineChart coinId={coinId} timePeriod={timePeriod} />
 
       </div>
 
       {/* statistics */}
-      <div className="grid md:grid-cols-2 grid-cols-1 gap-24 mt-10">
+      <div className="grid md:grid-cols-2 grid-cols-1 md:gap-24 gap-10 mt-10">
 
-        <div className="stat-box py-10 px-20">
+        <div className="stat-box md:py-10 md:px-20">
           <h1 className="text-md md:text-xl font-medium">{coin && coin.name} Value Statistics</h1>
           <p className="text-gray-500 text-xs md:text-sm my-3">An overview of {coin.name} statistics.</p>
-          <div className="flex-col text-gray-400 mt-10 md:space-y-5">
+          <div className="flex-col text-gray-400 md:mt-10 mt-5 md:space-y-5 space-y-2">
 
-            <div className="flex justify-between border-b">
+            <div className="flex justify-between border-b text-sm">
               <div>
                 <FaDollarSign className="inline mr-3" />
                 <span>Price</span>
@@ -93,7 +98,7 @@ const CryptoDetails = () => {
               <span>{millify(coin.price)}</span>
             </div>
 
-            <div className="flex justify-between border-b">
+            <div className="flex justify-between border-b text-sm">
               <div>
                 <FaHashtag className="inline mr-3" />
                 <span>Rank</span>
@@ -101,7 +106,7 @@ const CryptoDetails = () => {
               <span>{millify(coin.rank)}</span>
             </div>
 
-            <div className="flex justify-between border-b">
+            <div className="flex justify-between border-b text-sm">
               <div>
                 <FaStrikethrough className="inline mr-3" />
                 <span>24h Volume</span>
@@ -109,7 +114,7 @@ const CryptoDetails = () => {
               <span>{millify(coin["24hVolume"])}</span>
             </div>
 
-            <div className="flex justify-between border-b">
+            <div className="flex justify-between border-b text-sm">
               <div>
                 <FaDollarSign className="inline mr-3" />
                 <span>Market Cap</span>
@@ -117,7 +122,7 @@ const CryptoDetails = () => {
               <span>{millify(coin.marketCap)}</span>
             </div>
 
-            <div className="flex justify-between border-b">
+            <div className="flex justify-between border-b text-sm">
               <div>
                 <FaTrophy className="inline mr-3" />
                 <span>All time High</span>
@@ -128,12 +133,12 @@ const CryptoDetails = () => {
           </div>
         </div>
 
-        <div className="stat-box py-10 px-20">
+        <div className="stat-box md:py-10 md:px-20">
           <h1 className="text-md md:text-xl font-medium">Other Coin's Value Statistics</h1>
           <p className="text-gray-500 text-xs md:text-sm my-3">An overview of all cryptocurrency stats.</p>
-          <div className="flex-col text-gray-400 mt-10 md:space-y-5">
+          <div className="flex-col text-gray-400 mt-10 md:space-y-5 space-y-2">
 
-            <div className="flex justify-between border-b">
+            <div className="flex justify-between border-b text-sm">
               <div>
                 <FaChartLine className="inline mr-3" />
                 <span>Number Of Markets</span>
@@ -141,7 +146,7 @@ const CryptoDetails = () => {
               <span>{millify(coin.numberOfMarkets)}</span>
             </div>
 
-            <div className="flex justify-between border-b">
+            <div className="flex justify-between border-b text-sm">
               <div>
                 <FaExchangeAlt className="inline mr-3" />
                 <span>Number of Exchanges</span>
@@ -149,7 +154,7 @@ const CryptoDetails = () => {
               <span>{millify(coin.numberOfExchanges)}</span>
             </div>
 
-            <div className="flex justify-between border-b">
+            <div className="flex justify-between border-b text-sm">
               <div>
                 <FaExclamationCircle className="inline mr-3" />
                 <span>Approved Supply</span>
@@ -157,7 +162,7 @@ const CryptoDetails = () => {
               <span>{coin?.supply?.confirmed ? (coin.supply.confirmed ? '✔️' : '❌') : "Loading..."}</span>
             </div>
 
-            <div className="flex justify-between border-b">
+            <div className="flex justify-between border-b text-sm">
               <div>
                 <FaExclamationCircle className="inline mr-3" />
                 <span>Total Supply</span>
@@ -165,7 +170,7 @@ const CryptoDetails = () => {
               <span>{coin?.supply?.total ? millify(coin.supply.total) : "Loading..."}</span>
             </div>
 
-            <div className="flex justify-between border-b">
+            <div className="flex justify-between border-b text-sm">
               <div>
                 <FaExclamationCircle className="inline mr-3" />
                 <span>Circulating Supply</span>
@@ -180,9 +185,9 @@ const CryptoDetails = () => {
 
       {/* links section */}
       <div className="grid md:grid-cols-2 gap-5 font-semibold text-lg mt-10">
-        <div className="px-20">
+        <div className="md:px-20 pr-14">
           <h2
-            className="heading md:font-extrabold font-bold mt-20 mb-10"
+            className="heading md:font-extrabold font-bold md:mt-20 pt-5 mt-10 border-t md:mb-10"
           >
             What is <span className="text-green-500">{coin.name}?</span>
           </h2>
@@ -193,10 +198,10 @@ const CryptoDetails = () => {
           </p>
         </div>
         <div>
-          <h2 className="heading md:font-extrabold font-bold mt-20 mb-10 mx-20">{coin.name} Links</h2>
+          <h2 className="heading md:font-extrabold font-bold md:mt-20 mt-5 md:mb-10 md:mx-20">{coin.name} Links</h2>
           {coin.links.map((link, index) => (
             <div
-              className="flex gap-5 justify-between mx-20 py-5 border-b"
+              className="flex gap-5 justify-between md:mx-20 mr-10 md:py-5 py-1 border-b"
               key={index}
             >
               <p

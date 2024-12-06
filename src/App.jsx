@@ -15,7 +15,7 @@ import Topbar from './components/Topbar';
 
 
 const App = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Router>

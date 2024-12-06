@@ -62,12 +62,12 @@ const News = ({ isHome = false }) => {
   return (
     <section>
       <div className={`flex justify-start gap-3 heading mt-10 ${!isHome && 'hidden'}`}>
-        <h1 >Latest News</h1>
+        <h1>Latest News</h1>
         <Link
           className={`heading-link`}
           to='/news'
         >
-          <FaArrowCircleRight className="inline" />
+          <FaArrowCircleRight className="inline mb-2" />
         </Link>
       </div>
 
@@ -98,12 +98,13 @@ const News = ({ isHome = false }) => {
               <a
                 href={singleNews.link}
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <div className="flex-col items-between">
 
                   <div className="flex mb-3 gap-2">
 
-                    <p className="text-xl">{singleNews.title}</p>
+                    <p className="text-md md:text-lg">{singleNews.title}</p>
 
                     <img
                       className="md:h-36 h-24 md:w-36 w-24 rounded-sm"
@@ -112,7 +113,7 @@ const News = ({ isHome = false }) => {
 
                   </div>
 
-                  <p className="text-gray-500">{singleNews.snippet}</p>
+                  <p className="text-gray-500 text-xs md:text-md">{singleNews.snippet}</p>
 
                   <div className="flex justify-between text-sm mt-3">
                     {

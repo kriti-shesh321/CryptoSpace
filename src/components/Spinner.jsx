@@ -3,7 +3,7 @@ import RiseLoader from 'react-spinners/RiseLoader';
 
 const override = {
     display: 'block',
-    margin: '25% 30%',
+    margin: '25% 25%',
     speedMultiplier: 2,
 }
 
@@ -13,7 +13,7 @@ const Spinner = ({ loading }) => {
             color='green'
             loading={loading}
             cssOverride={override}
-            size={30}
+            size={16}
         />
     )
 }

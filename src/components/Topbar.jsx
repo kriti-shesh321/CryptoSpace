@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import logo from '../assets/images/logo.png';
+import logo from '/logo.png';
 
 const Topbar = () => {
     return (
@@ -18,6 +18,6 @@ const Topbar = () => {
                 </span>
             </NavLink>
         </div>
-    )
-}
+    );
+};
 export default Topbar;

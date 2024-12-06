@@ -15,94 +15,93 @@ const Cryptocurrencies = ({ isHome = false }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    try {
-      const fetchCoinsData = async () => {
+    const fetchCoinsData = async () => {
+      try {
         const limit = isHome ? 10 : 100;
         const data = await getCoinsData(limit);
         data && setCoinList(data);
-      };
-
-      fetchCoinsData();
     } catch (error) {
       console.log(error);
       navigate('/server-error');
     }
-  }, [isHome]);
+  };
+  fetchCoinsData();
+}, [isHome]);
 
-  useEffect(() => {
-    try {
-      setLoading(true);
-      if (!searchTerm) {
-        setFilteredCoins(coinList);
-      } else {
-        const filtered = coinList.filter((coin) =>
-          coin.name.toLowerCase().includes(searchTerm.toLowerCase())
+useEffect(() => {
+  try {
+    setLoading(true);
+    if (!searchTerm) {
+      setFilteredCoins(coinList);
+    } else {
+      const filtered = coinList.filter((coin) =>
+        coin.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredCoins(filtered);
+    }
+  } catch (error) {
+    console.log(error);
+    navigate('/server-error');
+
+  } finally {
+    setLoading(false);
+  }
+
+}, [searchTerm, coinList]);
+
+if (loading) return <Spinner />
+
+return (
+  <section>
+    <div className={`flex justify-start gap-3 heading mt-10 md:mt-0 ${!isHome && 'hidden'}`}>
+      <h1>Top 10 Cryptocurrencies Worldwide</h1>
+      <Link
+        className="heading-link"
+        to='/cryptocurrencies'
+      >
+        <FaArrowCircleRight className="inline" />
+      </Link>
+    </div>
+
+    <div className={`my-5 shadow-md border md:p-3 p-1 ${isHome && 'hidden'}`}>
+      <input
+        className="py-1 px-3 w-full"
+        type="text"
+        placeholder="Search for a coin..."
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+    </div>
+
+    <div className="grid md:grid-cols-4 grid-cols-2 md:gap-3 gap-2">
+      {filteredCoins.map((coin) => {
+        return (
+          <div className="stat-box" key={coin.uuid}>
+            <Link
+              to={`/cryptocurrencies/${coin.uuid}`}
+            >
+              <div className="flex justify-between">
+                <h3 className="md:text-md text-sm font-medium mt-2">{coin.rank}. {coin.name}</h3>
+                <img
+                  className="md:h-6 h-4 m-2"
+                  src={coin.iconUrl}
+                  alt={`Icon for ${coin.name}`}
+                >
+                </img>
+              </div>
+              <hr />
+              <div className="md:text-sm text-xs md:mt-5 mt-2 text-gray-500">
+                <p>Price: {millify(coin.price)}</p>
+                <p>Market Cap: {millify(coin.marketCap)}</p>
+                <p>Daily Change: {millify(coin.change)}</p>
+              </div>
+            </Link>
+          </div>
         );
-        setFilteredCoins(filtered);
-      }
-    } catch (error) {
-      console.log(error);
-      navigate('/server-error');
+      })}
+    </div>
 
-    } finally {
-      setLoading(false);
-    }
-
-  }, [searchTerm, coinList]);
-
-  if (loading) return <Spinner />
-
-  return (
-    <section>
-      <div className={`flex justify-start gap-3 heading mt-10 md:mt-0 ${!isHome && 'hidden'}`}>
-        <h1>Top 10 Cryptocurrencies Worldwide</h1>
-        <Link
-          className="heading-link"
-          to='/cryptocurrencies'
-        >
-          <FaArrowCircleRight className="inline" />
-        </Link>
-      </div>
-
-      <div className={`my-5 shadow-md border md:p-3 p-1 ${isHome && 'hidden'}`}>
-        <input
-          className="py-1 px-3 w-full"
-          type="text"
-          placeholder="Search for a coin..."
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
-
-      <div className="grid md:grid-cols-4 grid-cols-2 md:gap-3 gap-2">
-        {filteredCoins.map((coin) => {
-          return (
-            <div className="stat-box" key={coin.uuid}>
-              <Link
-                to={`/cryptocurrencies/${coin.uuid}`}
-              >
-                <div className="flex justify-between">
-                  <h3 className="md:text-md text-sm font-medium mt-2">{coin.rank}. {coin.name}</h3>
-                  <img
-                    className="md:h-6 h-4 m-2"
-                    src={coin.iconUrl}
-                    alt={`Icon for ${coin.name}`}
-                  >
-                  </img>
-                </div>
-                <hr />
-                <div className="md:text-sm text-xs md:mt-5 mt-2 text-gray-500">
-                  <p>Price: {millify(coin.price)}</p>
-                  <p>Market Cap: {millify(coin.marketCap)}</p>
-                  <p>Daily Change: {millify(coin.change)}</p>
-                </div>
-              </Link>
-            </div>
-          );
-        })}
-      </div>
-
-    </section >
-  );
+  </section >
+);
 };
 
 export default Cryptocurrencies;
