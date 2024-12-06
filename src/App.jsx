@@ -26,8 +26,7 @@ const App = () => {
         <div className="flex flex-1">
           <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
           <div
-            className={`flex-1 overflow-auto transition-all duration-300 min-h-screen my-5 md:pl-5 md:pr-20 pr-5 mb-20 ${isOpen ? "ml-64" : "ml-0"
-              } md:ml-4`}
+            className={`flex-1 overflow-auto transition-all duration-300 min-h-screen my-5 md:pl-5 md:pr-20 pr-5 mb-20 md:ml-4`}
           >
             <Routes>
               <Route path="/" element={<HomePage />} />
