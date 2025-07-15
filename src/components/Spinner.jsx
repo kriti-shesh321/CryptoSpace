@@ -1,19 +1,17 @@
-import React from 'react';
-import RiseLoader from 'react-spinners/RiseLoader';
+import PropagateLoader from 'react-spinners/PropagateLoader';
 
 const override = {
     display: 'block',
-    margin: '25% 25%',
-    speedMultiplier: 2,
+    speedMultiplier: 0.5
 }
 
 const Spinner = ({ loading }) => {
     return (
-        <RiseLoader
+        <PropagateLoader
             color='green'
             loading={loading}
             cssOverride={override}
-            size={16}
+            size={20}
         />
     )
 }

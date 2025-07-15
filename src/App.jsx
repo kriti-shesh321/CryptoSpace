@@ -12,6 +12,7 @@ import ServerErrorPage from './components/ServerError';
 import NotFoundPage from './components/NotFoundPage';
 import Footer from './components/Footer';
 import Topbar from './components/Topbar';
+import CryptoGlossary from "./components/CryptoGlossary";
 
 
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
               <Route path="/cryptocurrencies/:coinId" element={<CryptoDetails />} />
               <Route path="/exchanges" element={<Exchanges />} />
               <Route path="/news" element={<News />} />
+              <Route path="/crypto-glossary" element={<CryptoGlossary />} />
               <Route path="*" element={<NotFoundPage />} />
               <Route path="/server-error" element={<ServerErrorPage />} />
             </Routes>

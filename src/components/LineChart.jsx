@@ -95,8 +95,14 @@ const LineChart = ({ coinId, timePeriod }) => {
         },
     };
 
-    if (loading) return <Spinner />
+    if (loading) return (
+        <div className="mb-8">
+            <div className="pl-[20%] py-32">
+                <Spinner />
+            </div>
+        </div>
+    );
 
-    return <Line data={chartData} options={chartOptions} />
-}
+    return <Line data={chartData} options={chartOptions} />;
+};
 export default LineChart;

@@ -12,7 +12,7 @@ const HomePage = () => {
 
       <Cryptocurrencies isHome={true} />
 
-      <Exchanges isHome={true} />
+      {/* <Exchanges isHome={true} /> */}
 
       <News isHome={true}/>
 

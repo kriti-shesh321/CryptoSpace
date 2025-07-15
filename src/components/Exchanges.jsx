@@ -4,9 +4,10 @@ import { FaArrowCircleRight } from 'react-icons/fa';
 import millify from "millify";
 import Spinner from "./Spinner";
 import ExchangeContext from "../context/exchangeContext";
+import { exchangeData } from "../data/exchanges/exchangePlaceholderData";
 
-const Exchanges = ({isHome}) => {
-  const { getExchangeData } = useContext(ExchangeContext);
+const Exchanges = ({ isHome }) => {
+  // const { getExchangeData } = useContext(ExchangeContext);
   const [exchanges, setExchanges] = useState(null);
   const [loading, setLoading] = useState(true);
   const [expandedRow, setExpandedRow] = useState(null);
@@ -20,8 +21,8 @@ const Exchanges = ({isHome}) => {
   useEffect(() => {
     const fetchExchangeData = async () => {
       try {
-        const data = await getExchangeData();
-        setExchanges(data && data);
+        // const data = await getExchangeData();
+        setExchanges(exchangeData);
 
       } catch (error) {
         console.log(error);
@@ -29,9 +30,9 @@ const Exchanges = ({isHome}) => {
       } finally {
         setLoading(false);
       }
-    }
+    };
     fetchExchangeData();
-  }, [getExchangeData]);
+  }, []);
 
   if (loading) return <Spinner />;
 
@@ -50,6 +51,16 @@ const Exchanges = ({isHome}) => {
 
 
       <div className={`overflow-x-auto text-left mt-10 md:mt-0 ${isHome && 'hidden'}`}>
+        <div className="mb-4 text-sm text-gray-600 bg-yellow-50 border border-yellow-200 p-3 rounded">
+          <p className="mb-1">
+            ⚠️ <strong>Note:</strong> This exchange data is placeholder only. Live API integration is currently unavailable.
+          </p>
+          <p>
+            💡 Click on any exchange row below to view more details like trust score, year established, and official website.
+          </p>
+        </div>
+
+
         <table className="min-w-full text-slate-500 text-sm">
           <thead className="bg-gray-200 font-medium">
             <tr>
@@ -67,7 +78,7 @@ const Exchanges = ({isHome}) => {
                   onClick={() => toggleRow(index)}
                 >
                   <td className="md:p-4 px-1 py-4 border-b text-black flex md:gap-5 gap-1">
-                    <img className="md:h-8 h-6" src={exchange.image} alt="exchange icon" />
+                    <img className="md:h-8 h-6" src={exchange.image} alt="exchange icon" loading="lazy" />
                     <span>{exchange.trust_score_rank}. {exchange.name}</span>
                   </td>
                   <td className="md:p-4 px-1 py-4 border-b">{millify(exchange.trade_volume_24h_btc_normalized)}</td>
@@ -77,8 +88,8 @@ const Exchanges = ({isHome}) => {
                 {expandedRow === index && (
                   <tr>
                     <td colSpan="4" className="p-4 border-b bg-gray-50">
-                      <div className="overflow-hidden transition-all duration-300">
-                        <a href={exchange.url} className="text-blue-500 font-semibold underline" target="_blank" rel="noopener noreferrer">{exchange.name}</a> 
+                      <div className="overflow-hidden transition-all duration-500 ease-in-out">
+                        <a href={exchange.url} className="text-blue-500 font-semibold underline" target="_blank" rel="noopener noreferrer">{exchange.name}</a>
                         <p className="py-2">{exchange.description || 'No details available.'}</p>
                         <p><strong>Trust Score:</strong> {exchange.trust_score || 'N/A'}</p>
                         <p><strong>Eastablished In Year:</strong> {exchange.year_established || 'N/A'}</p>
@@ -93,6 +104,6 @@ const Exchanges = ({isHome}) => {
       </div>
 
     </section>
-  )
+  );
 };
 export default Exchanges;

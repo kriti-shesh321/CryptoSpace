@@ -31,7 +31,7 @@ const News = ({ isHome = false }) => {
         setLoading(false);
       }
 
-    }
+    };
     fetchedNews();
   }, [getNewsData]);
 
@@ -57,7 +57,16 @@ const News = ({ isHome = false }) => {
     }
   }, [newsCategory, newsList, loading]);
 
-  if (loading) return <Spinner />;
+  if (loading) return (
+    <div className="mb-8">
+      <div className={`flex justify-start gap-3 heading mt-10 ${!isHome && 'hidden'}`}>
+        <h1>Latest News</h1>
+      </div>
+      <div className="pl-[20%] py-20">
+        <Spinner />
+      </div>
+    </div>
+  );
 
   return (
     <section>
@@ -143,6 +152,6 @@ const News = ({ isHome = false }) => {
 
       </div>
     </section>
-  )
+  );
 };
 export default News;

@@ -28,6 +28,7 @@ const CryptoDetails = () => {
   useEffect(() => {
     const fetchCoinDetails = async () => {
       try {
+        setLoading(true);
         const data = await getCoinDetails(coinId, timePeriod);
         setCoin(data?.coin && data.coin);
       } catch (error) {
@@ -41,7 +42,13 @@ const CryptoDetails = () => {
 
   }, [coinId, timePeriod]);
 
-  if (loading) return <Spinner />
+  if (loading) return (
+    <div className="mb-8">
+      <div className="pl-[20%] py-32">
+        <Spinner />
+      </div>
+    </div>
+  );
 
   return (
     coin &&
@@ -225,6 +232,6 @@ const CryptoDetails = () => {
 
     </section>
 
-  )
-}
+  );
+};
 export default CryptoDetails;
