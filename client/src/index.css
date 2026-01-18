@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .stat-box {
+        @apply border bg-white md:shadow-md shadow-sm py-3 md:px-5 px-3
+    }
+
+    .heading {
+        @apply text-xl md:text-2xl mb-2
+    }
+
+    .heading-link {
+        @apply text-3xl inline text-emerald-600 hover:text-emerald-900 hover:shadow-lg
+    }
+}

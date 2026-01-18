@@ -1,0 +1,10 @@
+.env.*
+.env.local
+!.env.example
+node_modules/
+package-lock.json
+.DS_Store
+dist/
+logs/
+*.log
+npm-debug.log*
