@@ -28,9 +28,12 @@ and WebSocket-based notifications.
 - Workers fetch prices and evaluate alerts
 - Real-time alerts delivered via WebSockets
 
+## Completed Features
+
+- User authentication back-end module (register, login, JWT middleware)
+
 ## Upcoming Features
 
-- User authentication (JWT)
 - Price alerts with cooldown & deduplication
 - Background price fetch worker
 - Real-time alert notifications
