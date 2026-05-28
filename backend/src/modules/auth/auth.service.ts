@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { pool } from '../../config/db';
 import { ENV } from '../../config/env';
-import { hashPassword, comparePassword } from '../../utils/crypto';
+import { hashPassword, comparePassword } from '../../utils/password';
 import { DbUser, User } from './auth.types';
 
 const toUser = (dbUser: DbUser): User => {
@@ -33,13 +33,7 @@ export const register = async (email: string, password: string) => {
 
     const user = toUser(result.rows[0]);
 
-    const token = jwt.sign(
-        { userId: user.id },
-        ENV.JWT_SECRET,
-        { expiresIn: '7d' }
-    );
-
-    return { token, user };
+    return user ;
 };
 
 export const login = async (email: string, password: string) => {
@@ -49,10 +43,10 @@ export const login = async (email: string, password: string) => {
     );
 
     const dbUser = result.rows[0];
-    if (!dbUser) throw new Error('Invalid credentials');
+    if (!dbUser) throw new Error('USER_NOT_FOUND');
 
     const isValid = await comparePassword(password, dbUser.password_hash);
-    if (!isValid) throw new Error('Invalid credentials');
+    if (!isValid) throw new Error('INVALID_CREDENTIALS');
 
     const user = toUser(dbUser);
 
@@ -63,7 +57,7 @@ export const login = async (email: string, password: string) => {
     );
 
     return { token, user };
-}
+};
 
 export const getUser = async (userId: string) => {
     const result = await pool.query<DbUser>(
@@ -71,7 +65,7 @@ export const getUser = async (userId: string) => {
         [userId]
     );
 
-    if (!result.rows[0]) throw new Error('User not found');
+    if (!result.rows[0]) throw new Error('USER_NOT_FOUND');
 
     return toUser(result.rows[0]);
-}
+};
