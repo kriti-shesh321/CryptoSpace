@@ -16,4 +16,6 @@ export const ENV = {
   DB_URL: required('PG_DB_PUBLIC_URL'),
   REDIS_URL: required('REDIS_PUBLIC_URL'),
   JWT_SECRET: required('JWT_SECRET'),
+  COINGECKO_BASE_URL: required('COINGECKO_BASE_URL'),
+  COINGECKO_API_KEY: required('COINGECKO_API_KEY'),
 };
