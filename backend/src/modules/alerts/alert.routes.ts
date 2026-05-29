@@ -6,7 +6,7 @@ const router = Router();
 
 router.get("/", authMiddleware, getAlerts);
 router.post("/", authMiddleware, createAlert);
-router.put("/:id", authMiddleware, updateAlert);
+router.patch("/:id", authMiddleware, updateAlert);
 router.delete("/:id", authMiddleware, deleteAlert);
 
 export default router;

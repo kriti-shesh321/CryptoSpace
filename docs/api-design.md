@@ -1,6 +1,6 @@
 # Authentication
 
-## POST /api/auth/register
+## POST /api/v1/auth/register
 
 Register a new user.
 
@@ -30,7 +30,7 @@ Register a new user.
 
 ---
 
-## POST /api/auth/login
+## POST /api/v1/auth/login
 
 Authenticate user and return JWT.
 
@@ -66,7 +66,7 @@ Authenticate user and return JWT.
 
 ---
 
-## GET /api/auth/me
+## GET /api/v1/auth/me
 
 Get current user details.
 
@@ -103,7 +103,7 @@ Authorization: Bearer <token>
 
 Authorization: `Bearer <token>`
 
-## GET /api/alerts
+## GET /api/v1/alerts
 
 Get all alerts for the logged-in user.
 
@@ -131,7 +131,7 @@ Get all alerts for the logged-in user.
 
 ---
 
-## POST /api/alerts
+## POST /api/v1/alerts
 
 Create a new price alert.
 
@@ -169,7 +169,7 @@ Create a new price alert.
 
 ---
 
-## PATCH /api/alerts/:id
+## PATCH /api/v1/alerts/:id
 
 Update an alert. Send only the fields that need to be updated.
 
@@ -207,7 +207,7 @@ Update an alert. Send only the fields that need to be updated.
 
 ---
 
-## DELETE /api/alerts/:id
+## DELETE /api/v1/alerts/:id
 
 Delete an alert owned by the logged-in user.
 
