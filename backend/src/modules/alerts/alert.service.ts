@@ -6,20 +6,7 @@ import {
     UpdateAlertRequest,
 } from './alert.types';
 import { ALERT_OPERATORS, ALERT_TYPES } from './alert.constants';
-
-function toAlert(dbAlert: DbAlert): Alert {
-    return {
-        id: dbAlert.id,
-        coinId: dbAlert.coin_id,
-        type: dbAlert.type,
-        operator: dbAlert.operator,
-        value: dbAlert.value,
-        cooldownSeconds: dbAlert.cooldown_seconds,
-        isActive: dbAlert.is_active,
-        createdAt: dbAlert.created_at,
-        updatedAt: dbAlert.updated_at,
-    };
-}
+import { toAlert } from './alert.mapper';
 
 export async function getAlerts(userId: string): Promise<Alert[]> {
     const result = await pool.query<DbAlert>(

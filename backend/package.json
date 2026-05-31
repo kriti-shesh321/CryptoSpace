@@ -8,7 +8,8 @@
     "start": "node dist/server.js",
     "build": "tsc",
     "migrate": "ts-node scripts/migrate.ts",
-    "price-worker": "ts-node scripts/start-price-worker.ts"
+    "price-worker": "ts-node scripts/start-price-worker.ts",
+    "alert-worker": "ts-node scripts/start-alert-worker.ts"
   },
   "keywords": [],
   "author": "",

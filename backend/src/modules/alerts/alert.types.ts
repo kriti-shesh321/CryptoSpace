@@ -34,7 +34,7 @@ export interface Alert {
     coinId: string;
     type: AlertType;
     operator: AlertOperator;
-    value: string;
+    value: number;
     cooldownSeconds: number;
     isActive: boolean;
     createdAt: string;

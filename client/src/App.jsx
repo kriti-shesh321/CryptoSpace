@@ -14,9 +14,26 @@ import Footer from './components/Footer';
 import Topbar from './components/Topbar';
 import CryptoGlossary from "./components/CryptoGlossary";
 
+import { useEffect } from 'react';
+import { socket } from './socket';
+
 
 const App = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+
+    socket.on('alert-triggered', (data) => {
+
+      console.log('ALERT', data);
+    }
+    );
+
+    return () => {
+      socket.off('alert-triggered');
+    };
+
+  }, []);
 
   return (
     <Router>
