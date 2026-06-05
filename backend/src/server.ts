@@ -17,20 +17,19 @@ async function startServer() {
 
   const io = initializeSocket(server);
 
-  subscriber.on(
-    'message',
-    (_channel, message) => {
+  subscriber.on('message', (_channel, message) => {
 
-      const payload = JSON.parse(message);
+    const payload = JSON.parse(message);
 
-      io.emit(
-        'alert-triggered',
-        payload
-      );
+    io.to(
+      `user:${payload.userId}`
+    ).emit(
+      'alert-triggered',
+      payload
+    );
 
-      console.log('Socket event emitted');
-    }
-  );
+    console.log('Socket event emitted');
+  });
 
   server.listen(ENV.PORT, () => {
     console.log(`Server running on port ${ENV.PORT}`);

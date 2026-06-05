@@ -10,9 +10,7 @@ import { toAlert } from './alert.mapper';
 
 export async function getAlerts(userId: string): Promise<Alert[]> {
     const result = await pool.query<DbAlert>(
-        `SELECT * FROM alerts
-     WHERE user_id = $1
-     ORDER BY created_at DESC`,
+        `SELECT * FROM alerts WHERE user_id = $1 ORDER BY created_at DESC`,
         [userId]
     );
 

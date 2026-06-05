@@ -35,8 +35,48 @@
 - JWT-based authentication
 - Simple monolith to optimize development speed
 
-## Future Improvements
+## alert enginine and realtime notification
 
-- Email notification provider integration
-- Advanced alert types
-- Service separation if scale increases
+Price Worker
+    ↓
+Redis Cache
+
+Alert Worker
+    ↓
+alert_history
+    ↓
+Redis Pub/Sub
+
+API Server
+    ↓
+Socket.IO
+
+Frontend
+    ↓
+Realtime Notification
+
+## full-system architecture
+
+CoinGecko
+     ↓
+Price Worker
+     ↓
+Redis Cache
+     ↓
+Postgres Snapshots
+
+Redis Cache
+     ↓
+Alert Worker
+     ↓
+alert_history
+     ↓
+Redis Pub/Sub
+     ↓
+API Server
+     ↓
+Socket.IO
+     ↓
+User Room
+     ↓
+Frontend

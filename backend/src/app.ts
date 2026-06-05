@@ -3,6 +3,7 @@ import { checkDB } from './config/db';
 import { checkRedis } from './config/redis';
 import authRoutes from './modules/auth/auth.routes';
 import alertRoutes from './modules/alerts/alert.routes';
+import watchlistRoutes from './modules/watchlist/watchlist.routes';
 
 const app = express();
 
@@ -21,6 +22,8 @@ app.get('/health', async (req, res) => {
 app.use('/api/v1/auth', authRoutes);
 // alert routes
 app.use('/api/v1/alerts', alertRoutes);
+// watchlist routes
+app.use('/api/v1/watchlist', watchlistRoutes);
 
 export async function initializeApp() {
   await checkDB();

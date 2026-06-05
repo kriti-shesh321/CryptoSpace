@@ -61,6 +61,7 @@ export const alertWorker = new Worker(
 
             // Publish to Pub/Sub
             await publishAlert({
+                userId: alert.userId,
                 coin: alert.coinId,
                 price: currentPrice,
                 message: `${alert.coinId} crossed threshold`,

@@ -31,6 +31,7 @@ export interface DbAlert {
 
 export interface Alert {
     id: string;
+    userId: string;
     coinId: string;
     type: AlertType;
     operator: AlertOperator;

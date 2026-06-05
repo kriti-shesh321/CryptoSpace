@@ -3,6 +3,7 @@ import { DbAlert, Alert } from './alert.types';
 export function toAlert(dbAlert: DbAlert): Alert {
     return {
         id: dbAlert.id,
+        userId: dbAlert.user_id,
         coinId: dbAlert.coin_id,
         type: dbAlert.type,
         operator: dbAlert.operator,

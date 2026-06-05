@@ -1,4 +1,6 @@
 import { Server } from 'socket.io';
+import jwt from 'jsonwebtoken';
+import { ENV } from '../config/env';
 
 let io: Server;
 
@@ -10,7 +12,24 @@ export function initializeSocket(server: any): Server {
     });
 
     io.on('connection', (socket) => {
-        console.log(`Socket connected: ${socket.id}`);
+        try {
+
+            const token = socket.handshake.auth.token;
+
+            if (!token) {
+                socket.disconnect();
+                return;
+            }
+
+            const payload = jwt.verify(token, ENV.JWT_SECRET) as { userId: string; };
+
+            socket.join(`user:${payload.userId}`);
+
+            console.log(`User ${payload.userId} joined room user:${payload.userId}`);
+
+        } catch (error) {
+            socket.disconnect();
+        }
     });
 
     return io;

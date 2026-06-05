@@ -1,6 +1,4 @@
-import {
-  BrowserRouter as Router, Routes, Route
-} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
 import HomePage from './components/HomePage';
 import Sidebar from './components/Sidebar';
