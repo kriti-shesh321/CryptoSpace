@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { checkDB } from './config/db';
 import { checkRedis } from './config/redis';
 import authRoutes from './modules/auth/auth.routes';
@@ -8,6 +9,7 @@ import watchlistRoutes from './modules/watchlist/watchlist.routes';
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 // health check endpoint
 app.get('/health', async (req, res) => {
