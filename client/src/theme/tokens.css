@@ -1,0 +1,62 @@
+:root {
+
+    /* =====================
+     COLORS
+  ===================== */
+
+    --color-bg: #f5f6f9;
+    --color-surface: #ffffff;
+
+    --color-text-primary: #111827;
+    --color-text-secondary: #6b7280;
+
+    --color-primary: #4f46e5;
+    --color-primary-hover: #4338ca;
+
+    --color-success: #16a34a;
+    --color-danger: #dc2626;
+
+    --color-border: #e5e7eb;
+
+    /* =====================
+     SPACING
+  ===================== */
+
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+
+    /* =====================
+     RADIUS
+  ===================== */
+
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+
+    /* =====================
+     SHADOWS
+  ===================== */
+
+    --shadow-card:
+        0 1px 3px rgba(0, 0, 0, 0.08);
+
+    --shadow-modal:
+        0 10px 30px rgba(0, 0, 0, 0.15);
+
+    /* =====================
+     TYPOGRAPHY
+  ===================== */
+
+    --font-family:
+        Inter,
+        system-ui,
+        sans-serif;
+
+    --font-size-sm: 14px;
+    --font-size-md: 16px;
+    --font-size-lg: 18px;
+    --font-size-xl: 24px;
+}

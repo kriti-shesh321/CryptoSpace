@@ -1,6 +1,7 @@
 import { createContext } from 'react';
 import axios from 'axios';
 
+
 const API_KEY = import.meta.env.VITE_COIN_API_KEY;
 
 const CryptoContext = createContext();
