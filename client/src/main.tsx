@@ -9,18 +9,23 @@ import { CryptoProvider } from './context/cryptoCoinContext';
 import { NewsProvider } from './context/cryptoNews.jsx';
 import { ExchangeProvider } from './context/exchangeContext.jsx';
 
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./lib/queryClient";
+
 const rootElement = document.getElementById('root');
 
 if (rootElement) {
   createRoot(rootElement).render(
     <StrictMode>
-      <CryptoProvider>
-        <NewsProvider >
-          <ExchangeProvider>
-            <App />
-          </ExchangeProvider>
-        </NewsProvider>
-      </CryptoProvider>
+      <QueryClientProvider client={queryClient}>
+        <CryptoProvider>
+          <NewsProvider >
+            <ExchangeProvider>
+              <App />
+            </ExchangeProvider>
+          </NewsProvider>
+        </CryptoProvider>
+      </QueryClientProvider>
     </StrictMode>,
   );
 }
