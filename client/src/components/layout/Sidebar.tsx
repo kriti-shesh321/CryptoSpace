@@ -7,7 +7,8 @@ import {
     FaChartLine,
     FaCoins,
     FaQuestionCircle,
-    FaStar
+    FaStar,
+    FaBell
 } from 'react-icons/fa';
 import { useAuthStore } from '../../store/authStore';
 
@@ -63,6 +64,12 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
                                 <NavLink to="/watchlist" className={linkClass}>
                                     <FaStar className="mr-3" />
                                     Watchlist
+                                </NavLink>
+                            )}
+                            {isAuthenticated && (
+                                <NavLink to="/alerts" className={linkClass}>
+                                    <FaBell className="mr-3" />
+                                    Alerts
                                 </NavLink>
                             )}
                         </nav>

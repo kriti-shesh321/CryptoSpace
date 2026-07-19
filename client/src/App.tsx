@@ -14,26 +14,31 @@ import CryptoGlossary from "./pages/CryptoGlossary";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Watchlist from "./pages/Watchlist";
+import Alert from "./pages/Alert";
 import PublicRoute from "./components/routes/PublicRoute";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
+import AlertToast from "./components/AlertToast";
 
 import { useEffect } from 'react';
 import { connectSocket, disconnectSocket } from './services/socket';
 import { useAuthStore } from './store/authStore';
+import { useNotificationStore } from './store/notificationStore';
+import { AlertTriggeredPayload } from './types/alert.types';
 
 
 const App = () => {
   const [isOpen, setIsOpen] = useState(false);
   const token = useAuthStore((state) => state.token);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const addNotification = useNotificationStore((state) => state.addNotification);
 
   useEffect(() => {
     if (!isAuthenticated || !token) return;
 
     const socket = connectSocket(token);
 
-    socket.on('alert-triggered', (data) => {
-      console.log('ALERT', data);
+    socket.on('alert-triggered', (data: AlertTriggeredPayload) => {
+      addNotification(data);
     });
 
     return () => {
@@ -41,7 +46,7 @@ const App = () => {
       disconnectSocket();
     };
 
-  }, [isAuthenticated, token]);
+  }, [isAuthenticated, token, addNotification]);
 
   return (
     <Router>
@@ -67,6 +72,7 @@ const App = () => {
               </Route>
               <Route element={<ProtectedRoute />}>
                 <Route path="/watchlist" element={<Watchlist />} />
+                <Route path="/alerts" element={<Alert />} />
               </Route>
               <Route path="*" element={<NotFoundPage />} />
               <Route path="/server-error" element={<ServerErrorPage />} />
@@ -75,6 +81,7 @@ const App = () => {
         </div>
 
         <Footer />
+        <AlertToast />
       </div>
     </Router>
 
