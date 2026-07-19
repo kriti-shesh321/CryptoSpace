@@ -6,8 +6,10 @@ import {
     FaHome,
     FaChartLine,
     FaCoins,
-    FaQuestionCircle
+    FaQuestionCircle,
+    FaStar
 } from 'react-icons/fa';
+import { useAuthStore } from '../../store/authStore';
 
 type SidebarProps = {
     isOpen: boolean;
@@ -15,6 +17,8 @@ type SidebarProps = {
 };
 
 const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
+
+    const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
     const linkClass = ({ isActive }: { isActive: boolean }) =>
         isActive
@@ -55,6 +59,12 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
                                 <FaQuestionCircle className="mr-3" />
                                 Crypto Glossary ✨
                             </NavLink>
+                            {isAuthenticated && (
+                                <NavLink to="/watchlist" className={linkClass}>
+                                    <FaStar className="mr-3" />
+                                    Watchlist
+                                </NavLink>
+                            )}
                         </nav>
                     </div>
                 </div>

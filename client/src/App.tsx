@@ -13,7 +13,9 @@ import Topbar from './components/layout/Topbar';
 import CryptoGlossary from "./pages/CryptoGlossary";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Watchlist from "./pages/Watchlist";
 import PublicRoute from "./components/routes/PublicRoute";
+import ProtectedRoute from "./components/routes/ProtectedRoute";
 
 import { useEffect } from 'react';
 import { connectSocket, disconnectSocket } from './services/socket';
@@ -62,6 +64,9 @@ const App = () => {
               <Route element={<PublicRoute />}>
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
+              </Route>
+              <Route element={<ProtectedRoute />}>
+                <Route path="/watchlist" element={<Watchlist />} />
               </Route>
               <Route path="*" element={<NotFoundPage />} />
               <Route path="/server-error" element={<ServerErrorPage />} />
