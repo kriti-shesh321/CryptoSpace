@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { login } from "../services/auth.service";
+import { register } from "../services/auth.service";
 import { useAuthStore } from "../store/authStore";
 
-const Login = () => {
+const Signup = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -18,7 +18,7 @@ const Login = () => {
         try {
             setLoading(true);
             setError('');
-            const data = await login({ email, password });
+            const data = await register({ email, password });
             loginStore(data.token, data.user);
             navigate('/');
         } catch (err) {
@@ -31,7 +31,7 @@ const Login = () => {
 
     return (
         <section className="max-w-sm mx-auto mt-20">
-            <h1 className="heading text-center">Login</h1>
+            <h1 className="heading text-center">Signup</h1>
 
             <form className="stat-box mt-5 space-y-4" onSubmit={handleSubmit}>
                 <div>
@@ -65,14 +65,14 @@ const Login = () => {
                     type="submit"
                     disabled={loading}
                 >
-                    {loading ? 'Logging in...' : 'Login'}
+                    {loading ? 'Signing up...' : 'Signup'}
                 </button>
 
                 <p className="text-sm text-center text-gray-600">
-                    Don't have an account? <Link className="text-indigo-700 hover:underline" to="/signup">Signup</Link>
+                    Already have an account? <Link className="text-indigo-700 hover:underline" to="/login">Login</Link>
                 </p>
             </form>
         </section>
     );
 };
-export default Login;
+export default Signup;

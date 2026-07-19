@@ -12,6 +12,8 @@ import Footer from './components/layout/Footer';
 import Topbar from './components/layout/Topbar';
 import CryptoGlossary from "./pages/CryptoGlossary";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import PublicRoute from "./components/routes/PublicRoute";
 
 import { useEffect } from 'react';
 import { socket } from './socket';
@@ -52,7 +54,10 @@ const App = () => {
               <Route path="/exchanges" element={<Exchanges isHome={false} />} />
               {/* <Route path="/news" element={<News />} /> */}
               <Route path="/crypto-glossary" element={<CryptoGlossary />} />
-              <Route path="/login" element={<Login />} />
+              <Route element={<PublicRoute />}>
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+              </Route>
               <Route path="*" element={<NotFoundPage />} />
               <Route path="/server-error" element={<ServerErrorPage />} />
             </Routes>
