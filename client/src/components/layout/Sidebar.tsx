@@ -6,7 +6,6 @@ import {
     FaHome,
     FaChartLine,
     FaCoins,
-    FaLightbulb,
     FaQuestionCircle
 } from 'react-icons/fa';
 
@@ -51,10 +50,6 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
                             <NavLink to="/exchanges" className={linkClass}>
                                 <FaChartLine className="mr-3" />
                                 Exchanges
-                            </NavLink>
-                            <NavLink to="/news" className={linkClass}>
-                                <FaLightbulb className="mr-3" />
-                                News
                             </NavLink>
                             <NavLink to="/crypto-glossary" className={linkClass}>
                                 <FaQuestionCircle className="mr-3" />

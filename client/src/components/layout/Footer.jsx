@@ -17,12 +17,6 @@ const Footer = () => {
                 >
                     Exchanges
                 </Link>
-                <Link
-                    to='/news'
-                    className="hover:underline hover:text-gray-300"
-                >
-                    News
-                </Link>
             </div>
         </section>
     )

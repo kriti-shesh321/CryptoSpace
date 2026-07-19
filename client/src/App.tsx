@@ -16,25 +16,30 @@ import Signup from "./pages/Signup";
 import PublicRoute from "./components/routes/PublicRoute";
 
 import { useEffect } from 'react';
-import { socket } from './socket';
+import { connectSocket, disconnectSocket } from './services/socket';
+import { useAuthStore } from './store/authStore';
 
 
 const App = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const token = useAuthStore((state) => state.token);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   useEffect(() => {
+    if (!isAuthenticated || !token) return;
+
+    const socket = connectSocket(token);
 
     socket.on('alert-triggered', (data) => {
-
       console.log('ALERT', data);
-    }
-    );
+    });
 
     return () => {
       socket.off('alert-triggered');
+      disconnectSocket();
     };
 
-  }, []);
+  }, [isAuthenticated, token]);
 
   return (
     <Router>
