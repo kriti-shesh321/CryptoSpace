@@ -1,7 +1,12 @@
 import { ENV } from '../../config/env';
 import { metrics } from '../../metrics/metrics';
-import { CoinPrice } from './price.types';
-import { TRACKED_COINS } from './price.constant';
+import { CoinPrice, LivePrice, PriceSnapshot } from './price.types';
+import { TRACKED_COINS, isTrackedCoin } from './price.constant';
+import { getPrice } from './price-cache.service';
+import { getSnapshotHistory } from './price.repository';
+
+const MAX_HISTORY_DAYS = 30;
+const DEFAULT_HISTORY_DAYS = 7;
 
 export async function fetchPrices(): Promise<CoinPrice[]> {
 
@@ -28,4 +33,29 @@ export async function fetchPrices(): Promise<CoinPrice[]> {
         coinId,
         price: data[coinId].usd,
     }));
+}
+
+export async function getLivePrices(): Promise<LivePrice[]> {
+    return Promise.all(
+        TRACKED_COINS.map(async (coinId) => ({
+            coinId,
+            price: await getPrice(coinId),
+        }))
+    );
+}
+
+export async function getPriceHistory(
+    coinId: string,
+    days: number = DEFAULT_HISTORY_DAYS
+): Promise<PriceSnapshot[]> {
+    if (!isTrackedCoin(coinId)) {
+        throw new Error('INVALID_COIN');
+    }
+
+    const clampedDays = Math.min(
+        Math.max(days, 1),
+        MAX_HISTORY_DAYS
+    );
+
+    return getSnapshotHistory(coinId, clampedDays);
 }
