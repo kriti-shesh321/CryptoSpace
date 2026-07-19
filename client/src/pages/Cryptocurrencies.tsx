@@ -1,9 +1,12 @@
 import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import millify from "millify";
-import { FaArrowCircleRight } from 'react-icons/fa';
+import { FaArrowCircleRight, FaStar, FaRegStar } from 'react-icons/fa';
 import Spinner from "../components/Spinner";
 import CryptoContext from "../context/cryptoCoinContext";
+import { toTrackedCoinId } from "../utils/coinIdentity";
+import { useWatchlist } from "../hooks/useWatchlist";
+import { useAuthStore } from "../store/authStore";
 
 type CryptoCoin = {
   uuid: string;
@@ -25,6 +28,9 @@ const Cryptocurrencies = ({ isHome = false }) => {
   const [coinList, setCoinList] = useState<CryptoCoin[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredCoins, setFilteredCoins] = useState<CryptoCoin[]>([]);
+
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const { watchlist, addCoin, removeCoin } = useWatchlist();
 
   const navigate = useNavigate();
 
@@ -96,6 +102,11 @@ const Cryptocurrencies = ({ isHome = false }) => {
 
       <div className="grid md:grid-cols-4 grid-cols-2 md:gap-3 gap-2">
         {filteredCoins.map((coin) => {
+          const trackedCoinId = toTrackedCoinId(coin.name);
+          const isWatchlisted = !!trackedCoinId && watchlist.some(
+            (item) => item.coinId === trackedCoinId
+          );
+
           return (
             <div className="stat-box" key={coin.uuid}>
               <Link
@@ -117,6 +128,23 @@ const Cryptocurrencies = ({ isHome = false }) => {
                   <p>Daily Change: {millify(Number(coin.change))}</p>
                 </div>
               </Link>
+              {isAuthenticated && trackedCoinId && (
+                <button
+                  className="text-yellow-500 mt-2"
+                  onClick={() =>
+                    isWatchlisted
+                      ? removeCoin(trackedCoinId)
+                      : addCoin({ coinId: trackedCoinId })
+                  }
+                  aria-label={
+                    isWatchlisted
+                      ? `Remove ${coin.name} from watchlist`
+                      : `Add ${coin.name} to watchlist`
+                  }
+                >
+                  {isWatchlisted ? <FaStar /> : <FaRegStar />}
+                </button>
+              )}
             </div>
           );
         })}

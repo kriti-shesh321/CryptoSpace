@@ -13,6 +13,9 @@ import millify from "millify";
 import CoinContext from "../context/cryptoCoinContext";
 import Spinner from "../components/Spinner";
 import LineChart from "../components/LineChart";
+import { toTrackedCoinId } from "../utils/coinIdentity";
+import { useWatchlist } from "../hooks/useWatchlist";
+import { useAuthStore } from "../store/authStore";
 
 const CryptoDetails = () => {
   const { coinId } = useParams();
@@ -20,6 +23,9 @@ const CryptoDetails = () => {
   const [loading, setLoading] = useState(null);
   const [coin, setCoin] = useState(null);
   const [timePeriod, setTimePeriod] = useState('7d');
+
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const { watchlist, addCoin, removeCoin } = useWatchlist();
 
   const time = ['3h', '24h', '7d', '30d', '3m', '1y', '3y', '5y'];
 
@@ -50,6 +56,11 @@ const CryptoDetails = () => {
     </div>
   );
 
+  const trackedCoinId = coin ? toTrackedCoinId(coin.name) : null;
+  const isWatchlisted = !!trackedCoinId && watchlist.some(
+    (item) => item.coinId === trackedCoinId
+  );
+
   return (
     coin &&
     <section>
@@ -61,6 +72,18 @@ const CryptoDetails = () => {
             : "Loading.."}
         </h1>
         <p className="text-gray-400 mb-5">{coin.name} live price in US dollars. View value statistics, market cap and supply.</p>
+        {isAuthenticated && trackedCoinId && (
+          <button
+            className="border rounded py-1 px-4 text-sm font-medium text-indigo-700 hover:bg-indigo-50"
+            onClick={() =>
+              isWatchlisted
+                ? removeCoin(trackedCoinId)
+                : addCoin({ coinId: trackedCoinId })
+            }
+          >
+            {isWatchlisted ? "Remove from Watchlist" : "Add to Watchlist"}
+          </button>
+        )}
       </div>
 
       {/* chart */}
